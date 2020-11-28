@@ -52,17 +52,17 @@ Tìm ra vị trí có khả năng xuất hiện nhất của mỗi ma và khoả
           
 **Question 4: Approximate Inference Observation**: khác Question 1 ở chỗ sử dụng tập mẫu để đưa ra suy diễn
 
-*Hàm initializeUniformly():* 
+Hàm *initializeUniformly():* 
 
 	for counter in range(self.numParticles):
 		self.particles.append(legalPositions[counter % len(legalPositions)])
 
-*Hàm getBeliefDistribution():* Khởi tạo xác suất cho mỗi vị trí trong tập particles là bằng nhau và tổng bằng 1 (phân phối đều):
+Hàm *getBeliefDistribution():* Khởi tạo xác suất cho mỗi vị trí trong tập particles là bằng nhau và tổng bằng 1 (phân phối đều):
 
     for particle in self.particles:
         beliefDistribution[particle] += 1.0 / self.numParticles
 
-*Hàm observe():* Tương tự hàm observe() của Question 1:
+Hàm *observe():* Tương tự hàm observe() của Question 1:
 
     allPossible = util.Counter()
                 for p in self.legalPositions:
