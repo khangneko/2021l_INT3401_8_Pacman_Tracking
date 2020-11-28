@@ -1,21 +1,21 @@
 # 2021l_INT3401_8_Pacman_Tracking
 SOLUTION FOR PACMAN - TRACKING ASSIGNMENT:
 
-Question 1: Exact Inference Observation
+**Question 1: Exact Inference Observation**
 
 Xác suất ở mỗi vị trí mà ma có thể xuất hiện được tính bằng tích xác suất hậu nghiệm của tiếng ồn dựa trên khoảng cách manhattan của pacman với ma (P(noisyDistance|trueDistance)) nhân với xác suất tiên nghiệm mà ma xuất hiện ở mỗi vị trí (được cho bởi phân phối đều):
 
     if emissionModel[trueDistance] > 0:
       allPossible[p] = emissionModel[trueDistance] * self.beliefs[p]
                                                   
-Question 2: Exact Inference with Time Elapse
+**Question 2: Exact Inference with Time Elapse**
 
 Xác suất mà ma xuất hiện ở vị trí kế tiếp sẽ bằng xác suất ở vị trí hiện tại nhân với xác suất mà ma sẽ xuất hiện ở các vị trí tiếp theo(được cho bởi phân bố tùy vào loại ma). Hoặc có thể hiểu đây là xác suất có điều kiện P(vị trí tiếp theo | vị trí hiện tại của ma). Sau đó ta sẽ cập nhật xác suất này:
 
     for newPos, probability in positionDist.items():
       newBeliefs[newPos] += probability * self.beliefs[oldPos]
                                                                                                         
-Question 3: Exact Inference Full Test
+**Question 3: Exact Inference Full Test**
 
 Tìm ra vị trí có khả năng xuất hiện nhất của mỗi ma và khoảng cách từ pacman đến những vị trí đó:
 
@@ -49,4 +49,30 @@ Tìm ra vị trí có khả năng xuất hiện nhất của mỗi ma và khoả
               elif newDistance == bestNewDistance:
                   bestAction.append(action)
           return random.choice(bestAction)
+          
+**Question 4: Approximate Inference Observation**: khác Question 1 ở chỗ sử dụng tập mẫu để đưa ra suy diễn
+
+*Hàm initializeUniformly():* 
+
+	for counter in range(self.numParticles):
+		self.particles.append(legalPositions[counter % len(legalPositions)])
+
+*Hàm getBeliefDistribution():* Khởi tạo xác suất cho mỗi vị trí trong tập particles là bằng nhau và tổng bằng 1 (phân phối đều):
+
+    for particle in self.particles:
+        beliefDistribution[particle] += 1.0 / self.numParticles
+
+*Hàm observe():* Tương tự hàm observe() của Question 1:
+
+    allPossible = util.Counter()
+                for p in self.legalPositions:
+                    trueDistance = util.manhattanDistance(p, pacmanPosition)
+                    if emissionModel[trueDistance] > 0:
+                        allPossible[p] = emissionModel[trueDistance] * beliefDistribution[p]
+                                                        
+Khởi tạo lại tập mẫu nếu như xác suất ở tất cả các vị trí đều bằng 0:
+
+    if allPossible.totalCount() == 0:
+        self.initializeUniformly(gameState)
+
                                                   
