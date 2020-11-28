@@ -1,5 +1,6 @@
 # 2021l_INT3401_8_Pacman_Tracking
 SOLUTION FOR PACMAN - TRACKING ASSIGNMENT:
+
 Question 1: Exact Inference Observation
 
 Xác suất ở mỗi vị trí mà ma có thể xuất hiện được tính bằng tích xác suất hậu nghiệm của tiếng ồn dựa trên khoảng cách manhattan của pacman với ma (P(noisyDistance|trueDistance)) nhân với xác suất tiên nghiệm mà ma xuất hiện ở mỗi vị trí (được cho bởi phân phối đều):
@@ -26,7 +27,7 @@ Tìm ra vị trí có khả năng xuất hiện nhất của mỗi ma và khoả
                         highestProb, mostProbPosition = prob, position
                 mostLikeLyGhostPositions.append((mostProbPosition, self.distancer.getDistance(mostProbPosition, pacmanPosition)))
                                                       
- Sau đó tìm ra vị trí của ma gần nhất và khoảng cách từ pacmand đến đó:
+ Sau đó tìm ra vị trí của ma gần nhất và khoảng cách từ pacman đến đó:
  
     leastDistance = float('inf')
       closestPosition = None
