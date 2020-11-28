@@ -75,4 +75,9 @@ Khởi tạo lại tập mẫu nếu như xác suất ở tất cả các vị t
     if allPossible.totalCount() == 0:
         self.initializeUniformly(gameState)
 
+**Question 5: Approximate Inference with Time Elapse:** Tương tự Question 2
+
+**Question 6: Joint Particle Filter Observation:**
+
+**Question 7: Joint Particle Filter with Elapse Time:**
                                                   
